@@ -23,15 +23,13 @@ def createNewDatabase():
 def loadDatabase():
     dbName = input("Type in the database you want to use: ")
     database = dbName + ".csv"
-    with open(database, "a") as file:
-        writer = csv.writer(file)
-    print("The database has been loaded!")
-    return database
-
-def showPasswords():
-    with open() as file:
+    with open(database, newline='') as file:
         reader = csv.reader(file)
-        print(file)
+        dbList = list(reader)
+        return dbList
+
+def showPasswords(dbList):
+    print(dbList)
 
 def addPassword():
     None
