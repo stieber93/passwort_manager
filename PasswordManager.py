@@ -44,8 +44,24 @@ def addPassword(database):
         writer = csv.writer(file)
         writer.writerow([username, password, url])
 
-def deletePassword():
-    None
+def deletePassword(database, list):
+    with open(database, "r") as file:
+        reader = csv.reader(file)
+        for row in reader:
+            list += [row]
+    passwordToDelete = input("Type in the password you want to delete: ")
+    if passwordToDelete != "Passwort":
+        z = 0
+        while z in range(len(list)):
+            if passwordToDelete == list[z][1]:
+                list.pop(z)
+            z += 1
+    else:
+        print("Not deletable!")
+    with open(database, "w", newline="") as file:
+        writer = csv.writer(file)
+        for row in list:
+            writer.writerow(row)
 
 def updatePassword():
     None
@@ -105,7 +121,7 @@ if __name__ == '__main__':
             addPassword(database)
         # passwort löschen
         elif option == 3:
-            deletePassword()
+            deletePassword(database, passwordList)
         # passwort ändern
         elif option == 4:
             updatePassword()
