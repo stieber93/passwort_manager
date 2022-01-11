@@ -30,13 +30,19 @@ def showPasswords(database):
     with open(database, "r") as file:
         reader = csv.reader(file)
         for row in reader:
-            row[0] = row[0]
-            row[1] = row[1]
-            row[2] = row[2]
+            #row[0] = row[0]
+            #row[1] = row[1]
+            #row[2] = row[2]
             print("{0:<20} {1:<20} {2:<20}".format(row[0], row[1], row[2]))
 
-def addPassword():
-    None
+# neues passwort hinzufügen
+def addPassword(database):
+    username = input("Type in your username: ")
+    password = input("Type in your password: ")
+    url = input("Type in your URL: ")
+    with open(database, "a", newline="") as file:
+        writer = csv.writer(file)
+        writer.writerow([username, password, url])
 
 def deletePassword():
     None
@@ -96,7 +102,7 @@ if __name__ == '__main__':
             showPasswords(database)
         # passwort hinzufügen
         elif option == 2:
-            addPassword()
+            addPassword(database)
         # passwort löschen
         elif option == 3:
             deletePassword()
