@@ -12,10 +12,9 @@ def trennlinie():
 def createNewDatabase():
     dbName = input("Name your database: ")
     database = dbName + ".csv"
-    with open(database, "w") as file:
+    with open(database, "w", newline="") as file:
         writer = csv.writer(file)
-        firstRow = "Username {:>15} {:>10}".format("Password", "URL")
-        writer.writerow(firstRow)
+        writer.writerow(["Username", "Password", "URL"])
     print("The database has been created!")
     return database
 
@@ -23,13 +22,18 @@ def createNewDatabase():
 def loadDatabase():
     dbName = input("Type in the database you want to use: ")
     database = dbName + ".csv"
-    with open(database, newline='') as file:
-        reader = csv.reader(file)
-        dbList = list(reader)
-        return dbList
+    print("The database has been loaded!")
+    return database
 
-def showPasswords(dbList):
-    print(dbList)
+# passwörter der entsprechenden datenbank anzeigen
+def showPasswords(database):
+    with open(database, "r") as file:
+        reader = csv.reader(file)
+        for row in reader:
+            row[0] = row[0]
+            row[1] = row[1]
+            row[2] = row[2]
+            print("{0:<20} {1:<20} {2:<20}".format(row[0], row[1], row[2]))
 
 def addPassword():
     None
@@ -61,12 +65,12 @@ if __name__ == '__main__':
         option = int(input("Choose an option: "))
         # neue datenbank erstellen
         if option == 1:
-            createNewDatabase()
+            database = createNewDatabase()
             run_menue_1 = False
             run_menue_2 = True
         # mit bestehender datenbank starten
         elif option == 2:
-            loadDatabase()
+            database = loadDatabase()
             run_menue_1 = False
             run_menue_2 = True
         # abbrechen
@@ -76,7 +80,7 @@ if __name__ == '__main__':
     while run_menue_2:
         # ausgabemenü 2
         trennlinie()
-        print("          Password manager")
+        print("        Password manager (", database, ")")
         trennlinie()
         text = ""
         text1 = "{:>3} Show existing passwords\n".format("1)")
@@ -89,7 +93,7 @@ if __name__ == '__main__':
         option = int(input("Choose an option: "))
         # passwörter anzeigen
         if option == 1:
-            showPasswords()
+            showPasswords(database)
         # passwort hinzufügen
         elif option == 2:
             addPassword()
