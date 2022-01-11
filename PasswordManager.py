@@ -30,9 +30,6 @@ def showPasswords(database):
     with open(database, "r") as file:
         reader = csv.reader(file)
         for row in reader:
-            #row[0] = row[0]
-            #row[1] = row[1]
-            #row[2] = row[2]
             print("{0:<20} {1:<20} {2:<20}".format(row[0], row[1], row[2]))
 
 # neues passwort hinzufügen
