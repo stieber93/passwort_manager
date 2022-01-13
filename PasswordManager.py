@@ -1,4 +1,5 @@
 import csv
+import os.path
 
 # trennlinie in der ausgabe
 def trennlinie():
@@ -20,10 +21,16 @@ def createNewDatabase():
 
 # vorhandene datenbank laden
 def loadDatabase():
-    dbName = input("Type in the database you want to use: ")
-    database = dbName + ".csv"
-    print("The database has been loaded!")
-    return database
+    correctInput = False
+    while not correctInput:
+        dbName = input("Type in the database you want to use: ")
+        database = dbName + ".csv"
+        if os.path.isfile(database):
+            print("The database has been loaded!")
+            correctInput == True
+            return database
+        else:
+            print("This database doesn't exist!")
 
 # passwörter der entsprechenden datenbank anzeigen
 def showPasswords(database):
